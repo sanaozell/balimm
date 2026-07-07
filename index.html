@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sonsuz Evrenim</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  </head>
+  <body>
+    <!-- 0. ŞİFRE EKRANI (KAPIDA KARŞILAMA) -->
+    <div id="password-screen">
+      <div class="password-card">
+        <div class="lock-icon">🔒</div>
+        <h2>Gizli Evren</h2>
+        <p>Bu evrene girmek için anahtarı girmelisin.</p>
+        <input
+          type="password"
+          id="magic-password"
+          placeholder="Şifrenizi girin..."
+          autocomplete="off"
+        />
+        <button id="unlock-btn" class="glow-button">Giriş Yap</button>
+        <p id="error-msg" class="error-msg">
+          Yanlış şifre, tekrar denemelisin.
+        </p>
+      </div>
+    </div>
+    <div id="hero">
+      <canvas id="starfield"></canvas>
+
+      <div class="hero-content">
+        <h1 class="hero-text text-1">Sonsuz bir uzay boşluğunda...</h1>
+        <h1 class="hero-text text-2">
+          Milyonlarca yıldızın arasında aradım seni.
+        </h1>
+        <h1 class="hero-text text-3">
+          Ve benim evrenim, tamamen seninle başladı.
+        </h1>
+      </div>
+    </div>
+
+    <div id="counter-section">
+      <div class="heart-wrapper">
+        <svg
+          class="bg-heart"
+          viewBox="0 0 1000 600"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <path
+            d="M 500 200 C 500 200 350 50 150 150 C -50 300 500 550 500 550 C 500 550 1050 300 850 150 C 650 50 500 200 500 200 Z"
+            fill="none"
+            stroke="rgba(255, 105, 180, 0.6)"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+
+      <div class="counter-container">
+        <h2 class="counter-title">İlk Günden Beri, Her Saniyem Seninle...</h2>
+
+        <div class="timer-boxes">
+          <div class="timer-box">
+            <span id="days" class="time-num">00</span>
+            <span class="time-label">Gün</span>
+          </div>
+          <div class="timer-box">
+            <span id="hours" class="time-num">00</span>
+            <span class="time-label">Saat</span>
+          </div>
+          <div class="timer-box">
+            <span id="minutes" class="time-num">00</span>
+            <span class="time-label">Dakika</span>
+          </div>
+          <div class="timer-box">
+            <span id="seconds" class="time-num">00</span>
+            <span class="time-label">Saniye</span>
+          </div>
+        </div>
+
+        <p class="counter-footer">Sonsuzluğa uzanan nice yıllara...</p>
+      </div>
+    </div>
+    <div id="timeline-section">
+      <div class="ambient-glow glow-left"></div>
+      <div class="ambient-glow glow-right"></div>
+
+      <div class="timeline-container">
+        <div class="timeline-line">
+          <div class="timeline-line-progress"></div>
+        </div>
+
+        <div class="envelopes-wrapper">
+          <div class="envelope-item">
+            <div class="timeline-dot"></div>
+            <div class="envelope">
+              <div class="env-flap"></div>
+              <div class="env-back"></div>
+              <div class="env-letter">
+                <p>
+                  "Seninle tanıştığım o ilk gün, evrenin bana verdiği en güzel
+                  hediyeydi."
+                </p>
+              </div>
+              <div class="env-front-left"></div>
+              <div class="env-front-right"></div>
+              <div class="env-front-bottom"></div>
+            </div>
+          </div>
+
+          <div class="envelope-item">
+            <div class="timeline-dot"></div>
+            <div class="envelope">
+              <div class="env-flap"></div>
+              <div class="env-back"></div>
+              <div class="env-letter">
+                <p>"Gülüşün, karanlık dünyamı aydınlatan yegane ışık..."</p>
+              </div>
+              <div class="env-front-left"></div>
+              <div class="env-front-right"></div>
+              <div class="env-front-bottom"></div>
+            </div>
+          </div>
+
+          <div class="envelope-item">
+            <div class="timeline-dot"></div>
+            <div class="envelope">
+              <div class="env-flap"></div>
+              <div class="env-back"></div>
+              <div class="env-letter">
+                <p>
+                  "Sadece bugün değil, yeryüzündeki tüm yarınlarım seninle
+                  güzel."
+                </p>
+              </div>
+              <div class="env-front-left"></div>
+              <div class="env-front-right"></div>
+              <div class="env-front-bottom"></div>
+            </div>
+          </div>
+
+          <div class="envelope-item">
+            <div class="timeline-dot"></div>
+            <div class="envelope">
+              <div class="env-flap"></div>
+              <div class="env-back"></div>
+              <div class="env-letter">
+                <p>
+                  "Ellerini tuttuğumda zaman duruyor; mekan sadece 'biz'
+                  oluyoruz."
+                </p>
+              </div>
+              <div class="env-front-left"></div>
+              <div class="env-front-right"></div>
+              <div class="env-front-bottom"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="elegant-gallery-section">
+      <div class="gallery-container">
+        <div class="gallery-card left-card">
+          <div class="photo-frame">
+            <img src="img/foto1.jpeg" alt="Anı 1" />
+          </div>
+          <div class="photo-content">
+            <div class="icon-glow">✦</div>
+            <p>Birlikte olduğumuz her an, zamanın durduğu o sihirli an...</p>
+          </div>
+        </div>
+
+        <div class="gallery-card right-card">
+          <div class="photo-content">
+            <div class="icon-glow">✧</div>
+            <p>Seninle güldüğüm kadar hiçbir şeye gülmedim.</p>
+          </div>
+          <div class="photo-frame">
+            <img src="img/foto4.jpeg" alt="Anı 2" />
+          </div>
+        </div>
+
+        <div class="gallery-card left-card">
+          <div class="photo-frame">
+            <img src="img/foto3.jpeg" alt="Anı 3" />
+          </div>
+          <div class="photo-content">
+            <div class="icon-glow">✦</div>
+            <p>Baktığım her yerde, o güzel gözlerini görüyorum.</p>
+          </div>
+        </div>
+
+        <div class="gallery-card right-card">
+          <div class="photo-content">
+            <div class="icon-glow">✧</div>
+            <p>Hayatın karmaşasında bulduğum en büyük huzursun.</p>
+          </div>
+          <div class="photo-frame">
+            <img src="img/foto2.jpeg" alt="Anı 4" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="heart-transition-section">
+      <div class="final-photo-container" id="photo-5">
+        <div class="growing-heart-icon" id="the-heart">
+          <svg viewBox="0 0 24 24" fill="#ff2e63">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+        </div>
+
+        <div class="photo-frame">
+          <img src="img/foto5.jpeg" alt="Anı 5" />
+        </div>
+        <p class="final-caption">
+          Ve en güzeli, bu hikayenin hiç bitmeyecek olması...
+        </p>
+      </div>
+
+      <div class="heart-final-text">
+        <h1>Seninle Geçen Her Saniye, Koca Bir Ömre Bedel.</h1>
+      </div>
+    </div>
+    <div id="blueprint-section">
+      <div class="blueprint-grid"></div>
+
+      <div class="blueprint-content">
+        <div class="svg-container">
+          <svg viewBox="0 0 100 50" class="infinity-svg">
+            <path
+              class="infinity-path"
+              d="M 25 25 C 10 10, 10 40, 25 25 C 40 10, 60 40, 75 25 C 90 10, 90 40, 75 25 C 60 10, 40 40, 25 25 Z"
+              fill="none"
+              stroke="#ffffff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+
+        <div class="blueprint-text">
+          <h2>Proje Adı: Sonsuzluk</h2>
+          <p>
+            Geleceğimizi ilmek ilmek, en sağlam temelden beraber inşa edelim...
+          </p>
+          <p class="engineer-note">
+            Baş Mühendisler: [Ceren] & [Emir]
+            <span class="typing-cursor">_</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="journey-section">
+      <div class="journey-header">
+        <h2>Bizim Yolculuğumuz</h2>
+        <p>Her adımı ayrı güzel, her durağı bizimle özel...</p>
+      </div>
+
+      <div class="journey-container">
+        <svg
+          class="journey-path-svg"
+          preserveAspectRatio="none"
+          viewBox="0 0 100 1000"
+        >
+          <path
+            class="journey-path-line"
+            d="M 50 0 C 80 100, 20 200, 50 300 C 80 400, 20 500, 50 600 C 80 700, 20 800, 50 900 L 50 1000"
+          />
+        </svg>
+
+        <div class="journey-node left-node">
+          <div class="node-icon">👀</div>
+          <div class="node-content">
+            <h3>Seni İlk Gördüğüm Yer</h3>
+            <p class="node-location">📍 [Baykuş Cafe]</p>
+            <p class="node-desc">
+              [Seni gördüğüm o ilk an, etrafındaki o eşsiz aura beni adeta kendi
+              yörüngesine çekti.]
+            </p>
+          </div>
+        </div>
+
+        <div class="journey-node right-node">
+          <div class="node-content">
+            <h3>İlk Sarıldığım Yer</h3>
+            <p class="node-location">📍 [Marry Cafe]</p>
+            <p class="node-desc">
+              [Sana sarıldığım o an, zaman akmayı bıraktı ve bütün dünyam sadece
+              o andan ibaretmiş gibi hissettim.]
+            </p>
+          </div>
+          <div class="node-icon">🫂</div>
+        </div>
+
+        <div class="journey-node left-node">
+          <div class="node-icon">💋</div>
+          <div class="node-content">
+            <h3>İlk Öptüğüm Yer</h3>
+            <p class="node-location">📍 [Genek Apt. Daire 8]</p>
+            <p class="node-desc">[O sihirli anın detayları anlatılamaz]</p>
+          </div>
+        </div>
+
+        <div class="journey-node right-node highlight-node">
+          <div class="node-content">
+            <h3>İlk Kez "Seni Seviyorum" Dediğimiz Yer</h3>
+            <p class="node-location">📍 [Genek Apt. Daire 8 Salon]</p>
+            <p class="node-desc">
+              [O kelimeler ağzımdan dökülürken sanki farklı bir boyuttayız gibi
+              hissettim]
+            </p>
+          </div>
+          <div class="node-icon">❤️</div>
+        </div>
+
+        <div class="journey-node left-node">
+          <div class="node-icon">🎸</div>
+          <div class="node-content">
+            <h3>Gittiğimiz İlk Konser</h3>
+            <p class="node-location">📍 [Emre Fel]</p>
+            <p class="node-desc">
+              [O şarkı çalarken hissettiğim tek şey şuydu: Melodiler ne söylerse
+              söylesin, benim gözümde gerçekten senden daha güzeli, senden daha
+              özeli yok.]
+            </p>
+          </div>
+        </div>
+
+        <div class="journey-node left-node">
+          <div class="node-icon">👨‍🍳</div>
+          <div class="node-content">
+            <h3>Beraber Mutfağa Girdiğimiz İlk An</h3>
+            <p class="node-location">📍 [Gedik Apt. Daire 8 Mutfak]</p>
+            <p class="node-desc">
+              [Yaptığımız kremalı tavuklu makarnanın tadı hala damağımdan
+              gitmiyor]
+            </p>
+          </div>
+        </div>
+
+        <div class="journey-node right-node">
+          <div class="node-content">
+            <h3>İlk Uzun Yolculuğumuz</h3>
+            <p class="node-location">📍 [Deniz/Pamukkale]</p>
+            <p class="node-desc">
+              [Bu bembeyaz masalın içinde gözümü alamadığım tek ve en güzel
+              manzara sendin.]
+            </p>
+          </div>
+          <div class="node-icon">✈️</div>
+        </div>
+
+        <div class="journey-node final-node">
+          <div class="node-icon">♾️</div>
+          <div class="node-content">
+            <h3>Sonsuzluk Durağı</h3>
+            <p class="node-desc">
+              Ve bu yol, biz el ele olduğumuz sürece hiç bitmeyecek...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="music-section">
+      <div class="music-container">
+        <div class="record-player-card" id="player-card-1">
+          <audio id="audio-1" loop preload="auto">
+            <source src="sarki.mp3" type="audio/mpeg" />
+          </audio>
+
+          <div class="turntable" id="turntable-1">
+            <div class="record" id="record-1">
+              <div class="record-label label-red">
+                <span class="heart-center">❤</span>
+              </div>
+            </div>
+            <div class="tonearm" id="tonearm-1"></div>
+          </div>
+
+          <div class="player-controls">
+            <h3>Bizim Şarkımız</h3>
+            <p></p>
+            <button class="music-btn" id="btn-1" onclick="toggleMusic(1)">
+              <span id="icon-1">▶ Başlat</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="record-player-card" id="player-card-2">
+          <audio id="audio-2" loop preload="auto">
+            <source src="t.mp3" type="audio/mpeg" />
+          </audio>
+
+          <div class="turntable" id="turntable-2">
+            <div class="record" id="record-2">
+              <div class="record-label label-gold">
+                <span class="heart-center">✨</span>
+              </div>
+            </div>
+            <div class="tonearm" id="tonearm-2"></div>
+          </div>
+
+          <div class="player-controls">
+            <h3>Ev Şarkımız</h3>
+            <p></p>
+            <button class="music-btn" id="btn-2" onclick="toggleMusic(2)">
+              <span id="icon-2">▶ Başlat</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="birthday-section">
+      <div class="birthday-content">
+        <h2 class="birthday-title">İyi ki Doğdun...</h2>
+        <p id="birthday-instruction" class="birthday-instruction">
+          Dileğini tut ve söndürmek için mumlara dokun 🎂
+        </p>
+
+        <div class="cake-wrapper">
+          <div id="cake-note" class="cake-note">
+            <p>
+              "Yeni yaşın, tıpkı senin gibi mucizelerle dolu olsun.<br /><br />Seni
+              her şeyden, herkesten çok seviyorum!"
+            </p>
+          </div>
+
+          <div class="css-cake">
+            <div class="cake-plate"></div>
+
+            <div class="cake-tier tier-bottom">
+              <div class="frosting-drips"></div>
+            </div>
+
+            <div class="cake-tier tier-top">
+              <div class="frosting-drips"></div>
+
+              <div class="candles">
+                <div class="candle candle-1">
+                  <div class="wick"></div>
+                  <div class="flame"></div>
+                  <div class="smoke"></div>
+                </div>
+                <div class="candle candle-2">
+                  <div class="wick"></div>
+                  <div class="flame"></div>
+                  <div class="smoke"></div>
+                </div>
+                <div class="candle candle-3">
+                  <div class="wick"></div>
+                  <div class="flame"></div>
+                  <div class="smoke"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="lantern-section">
+      <div class="lantern-glow-bg"></div>
+
+      <div id="lantern-container"></div>
+
+      <div class="lantern-content">
+        <h2>Gökyüzüne Bir Dilek Bırak...</h2>
+        <p>Bizim için içinden ne geçiyorsa, her dokunuşunda bir fener uçur.</p>
+        <button id="wish-button" class="glow-button">Dilek Tut 🏮</button>
+      </div>
+    </div>
+    <div id="final-section">
+      <div class="final-content">
+        <div class="constellation-wrapper">
+          <svg viewBox="0 0 400 150" class="constellation-svg" id="star-svg">
+            <path
+              id="path-C"
+              d="M 110 45 A 35 35 0 1 0 110 105"
+              fill="none"
+              stroke="none"
+            />
+            <path
+              id="path-infinity"
+              d="M 200 75 C 175 45, 145 45, 145 75 C 145 105, 175 105, 200 75 C 225 45, 255 45, 255 75 C 255 105, 225 105, 200 75 Z"
+              fill="none"
+              stroke="none"
+            />
+            <path
+              id="path-E"
+              d="M 310 40 L 270 40 L 270 110 L 310 110 M 270 75 L 300 75"
+              fill="none"
+              stroke="none"
+            />
+
+            <g id="stars-C"></g>
+            <g id="stars-infinity"></g>
+            <g id="stars-E"></g>
+          </svg>
+        </div>
+
+        <div class="final-text">
+          <p class="final-line1">Bu site burada bitiyor...</p>
+          <p class="final-line2">
+            Ama bizim hikayemiz sonsuza kadar devam edecek.
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
